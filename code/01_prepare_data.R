@@ -5,17 +5,22 @@
 # 2. Pre-processing of data
 #----------------------------------#
 
-# License: Creative Commons Attribution 4.0 International License (CC BY 4.0)
-# Attribution: FiveThirtyEight - Candy Power Ranking Dataset
-# Link: https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking
-
 #----------------------------------#
 #### 1. Load Data ####
 #----------------------------------#
 
+# License: Creative Commons Attribution 4.0 International License (CC BY 4.0)
+# Attribution: FiveThirtyEight - Candy Power Ranking Dataset
+# Link: https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking
 
-url <- "https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/candy-power-ranking/candy-data.csv"
-data.raw <- fread(url)
+if (file.exists("data/raw/candy.data.raw")){
+  candy.data.raw <- readRDS("data/raw/candy.data.raw")
+} else {
+  url <- "https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/candy-power-ranking/candy-data.csv"
+  candy.data.raw <- fread(url)
+  # Save raw data
+  saveRDS(candy.data.raw, "data/raw/candy.data.raw")
+}
 
 #----------------------------------#
 #### 2. Pre-processing of data ####
@@ -37,3 +42,6 @@ candy.data[, price.category := cut(pricepercent,
 
 # Conversion of win percentage to a proportional value
 candy.data[, win.prop := winpercent / 100]
+
+# Save prepocessed data
+saveRDS(candy.data, "data/intermediate/candy.data")
