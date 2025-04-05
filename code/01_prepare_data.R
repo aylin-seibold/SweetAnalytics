@@ -26,9 +26,12 @@ if (file.exists("data/raw/candy.data.raw")){
 #### 2. Pre-processing of data ####
 #----------------------------------#
 
+if (file.exists("data/raw/candy.data.raw")){
+  candy.data <- readRDS("data/intermediate/candy.data")
+} else {
 # Conversion of categorical data to factor variables
-candy.data <- data.raw[, (names(data.raw)[sapply(data.raw, is.integer)]) := lapply(.SD, as.factor), 
-                       .SDcols = sapply(data.raw, is.integer)]
+candy.data <- candy.data.raw[, (names(candy.data.raw)[sapply(candy.data.raw, is.integer)]) := lapply(.SD, as.factor), 
+                       .SDcols = sapply(candy.data.raw, is.integer)]
 
 
 #  Conversion of sugar percentage and price percentage into categorical variables
@@ -45,3 +48,4 @@ candy.data[, win.prop := winpercent / 100]
 
 # Save prepocessed data
 saveRDS(candy.data, "data/intermediate/candy.data")
+}
