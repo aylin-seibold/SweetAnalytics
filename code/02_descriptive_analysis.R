@@ -1,12 +1,12 @@
 #### Structure of this code ########
 #----------------------------------#
-# 1. Boxplots for Continuous Variables
+# 1. Boxplots of Continuous Variables
 # 2. Frequency Plots of the Categorical Variables
-# 3. Frequency Plots for the Top and Bottom 30% Most Popular Sweets
+# 3. Frequency Plots for the Top and Bottom 30% Most Popular Candies
 #----------------------------------#
 
 #----------------------------------#
-#### 1. Boxplots for Continuous Variables ####
+#### 1. Boxplots of Continuous Variables ####
 #----------------------------------#
 
 # Winpercent
@@ -36,7 +36,7 @@ boxplot.pricepercent <- ggplot(candy.data, aes(x = pricepercent) )+
   geom_boxplot() +
   labs(
     title = "Verteilung der Preisperzentile",
-    x = "Percentile"
+    x = "Perzentile"
   ) +
   coord_flip() +
   theme(axis.title.y = element_blank()) 
@@ -46,14 +46,17 @@ ggsave("plots/boxplot.pricepercent.pdf", plot = boxplot.pricepercent, device = "
 #### 2. Frequency plots of the Categorical Variables ####
 #----------------------------------#
 
-# Sample size
+# Calculate the frequency of each binary categorical feature (e.g., chocolate, fruity, caramel, etc.)
+# The goal is to visualize how often each ingredient/feature appears across all candies in the dataset.
+
+# Total sample size (total number of candies)
 n <- nrow(candy.data)
 
-# Names of the categorial features
+# Specify the binary categorical features (each coded as 0 or 1)
 features <- c("chocolate", "fruity", "caramel", "peanutyalmondy", 
               "nougat", "crispedricewafer", "hard", "bar", "pluribus")
 
-# Function for counting frequencies
+# Function to count the frequency of each feature in the dataset
 long.counts <- function(dt, group.label) {
   melted <- melt(dt[, ..features], measure.vars = features,
                  variable.name = "feature", value.name = "value")
@@ -63,10 +66,10 @@ long.counts <- function(dt, group.label) {
   return(counts)
 }
 
-# Data table for frequencies
+# Get counts for all features in the dataset
 counts.data <- long.counts(candy.data, features)
 
-# Barplot over all frequencies
+# Create bar plot for the frequencies of each categorical feature
 barplot.categories <- ggplot(counts.data, aes(x = feature, y = N/n)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(
@@ -79,15 +82,16 @@ barplot.categories <- ggplot(counts.data, aes(x = feature, y = N/n)) +
 ggsave("plots/barplot.categories.pdf", plot = barplot.categories, device = "pdf", width = 8, height = 6)
 
 #----------------------------------#
-#### 3. Frequency Plots for the Top and Bottom 30% Most Popular Sweets ####
+#### 3. Frequency Plots for the Top and Bottom 30% Most Popular Candies ####
 #----------------------------------#
 
-top.n <- ceiling(n * 0.30)
 
-# Select top 30% of sweets based on popularity
+top.n <- ceiling(n * 0.30)  # Calculate the number of top 30% candies based on the total sample size
+
+# Select top 30% candies based on popularity
 top.30 <- candy.data[order(-win.prop)][1:top.n]
 
-# Select bottom 30% of sweets
+# Select bottom 30% candies
 bottom.30 <- candy.data[order(win.prop)][1:top.n]
 
 # Create frequency tables of binary features for top and bottom 30%
@@ -128,8 +132,8 @@ counts.bottom.cat <- category.counts(bottom.30, "Bottom 30%")
 # Combine both for plotting
 category.data <- rbind(counts.top.cat, counts.bottom.cat)
 
-# Bar plot: comparison of sugar and price category distribution
-barplot.sugar.price.30 <- ggplot(category.data, aes(x = category, y = count, fill = group)) +
+# Create bar plot comparing sugar and price category frequencies in top and bottom 30% groups
+barplot.sugar.price.30 <- ggplot(category.data, aes(x = category, y = count/n, fill = group)) +
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap(~ feature, scales = "free_x") +
   labs(
@@ -140,10 +144,12 @@ barplot.sugar.price.30 <- ggplot(category.data, aes(x = category, y = count, fil
   ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-ggsave("plots/barplot.sugar.price.30 .pdf", plot = barplot.sugar.price.30 , device = "pdf", width = 8, height = 6)
+ggsave("plots/barplot.sugar.price.30.pdf", plot = barplot.sugar.price.30 , device = "pdf", width = 8, height = 6)
 
-# Add binary indicator column: 1 if candy is in Top 30%, 0 otherwise and vise versa
+# Create a binary column indicating whether a candy is in the top 30% (1 for top, 0 for not)
 candy.data[, top30 := fifelse(competitorname %in% top.30$competitorname, 1, 0)]
+
+# Create a binary column indicating whether a candy is in the bottom 30% (1 for bottom, 0 for not)
 candy.data[, bottom30 := fifelse(competitorname %in% top.30$competitorname, 0, 1)]
 
 
