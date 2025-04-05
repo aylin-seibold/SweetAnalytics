@@ -8,9 +8,9 @@ This code performs an analysis of market research data on candy preferences. It 
 
 Please follow the script order below to ensure the analysis works correctly:
 
-1. **01_prepare_data.R** – Prepare and clean the data.
-2. **02_descriptive_analysis.R** – Perform descriptive analysis.
-3. **03_statistical_analysis_and_modeling.R** – Conduct statistical tests and model the data.
+**01_prepare_data.R** – Prepare and clean the data.
+**02_descriptive_analysis.R** – Perform descriptive analysis through visualizations.
+**03_statistical_analysis_and_modeling.R** – Conduct statistical tests and model the data.
 
 ## **License of Data**
 

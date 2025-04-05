@@ -10,7 +10,7 @@
 #### 1. Load Packages ####
 #----------------------------------#
 
-packages <- c("ggplot2", "data.table")
+packages <- c("ggplot2", "data.table", "randomForest")
 if(length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))
 }

@@ -10,7 +10,7 @@
 #----------------------------------#
 
 # Winpercent
-boxplot.winprop <- ggplot(candy.data, aes(x = win.prop) )+
+boxplot.winprop <- ggplot(candy.data, aes(x = win.prop) ) +
   geom_boxplot() +
   labs(
     title = "Verteilung des Gewinnprozentsatzes basierend auf 269.000 Vergleichen",
@@ -21,7 +21,7 @@ boxplot.winprop <- ggplot(candy.data, aes(x = win.prop) )+
 ggsave("plots/boxplot.winprop.pdf", plot = boxplot.winprop, device = "pdf", width = 8, height = 6)
 
 # Sugarpercent
-boxplot.sugarpercent <- ggplot(candy.data, aes(x = sugarpercent) )+
+boxplot.sugarpercent <- ggplot(candy.data, aes(x = sugarpercent) ) +
   geom_boxplot() +
   labs(
     title = "Verteilung der Zuckerperzentile",
@@ -32,7 +32,7 @@ boxplot.sugarpercent <- ggplot(candy.data, aes(x = sugarpercent) )+
 ggsave("plots/boxplot.sugarpercent.pdf", plot = boxplot.sugarpercent, device = "pdf", width = 8, height = 6)
 
 # Pricepercent
-boxplot.pricepercent <- ggplot(candy.data, aes(x = pricepercent) )+
+boxplot.pricepercent <- ggplot(candy.data, aes(x = pricepercent) ) +
   geom_boxplot() +
   labs(
     title = "Verteilung der Preisperzentile",
