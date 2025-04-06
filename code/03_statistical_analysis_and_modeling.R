@@ -49,8 +49,6 @@ shapiro.results
 anova.model <- aov(win.prop ~ chocolate + fruity + caramel + peanutyalmondy + 
                      nougat + crispedricewafer + hard + bar + pluribus, 
                    data = candy.data)
-
-# Display the ANOVA results to see the significance of each ingredient on win.prop
 summary(anova.model)
 
 #----------------------------------#
@@ -79,8 +77,6 @@ importance(model.rf)
 model.lm <- lm(win.prop ~ chocolate + hard + fruity + peanutyalmondy + caramel + 
                  nougat + crispedricewafer + bar + pluribus + sugarpercent + 
                  pricepercent, data = candy.data)
-
-# Display the summary of the linear model to check the coefficients and significance levels of each predictor
 summary(model.lm)
 
 #----------------------------------#
@@ -92,8 +88,6 @@ summary(model.lm)
 model.glm.top <- glm(top30 ~ chocolate + hard + fruity + peanutyalmondy + caramel + 
                        nougat + crispedricewafer + bar + pluribus + sugarpercent + 
                        pricepercent, family = "binomial", data = candy.data)
-
-# Display the summary of the GLM for the top 30% prediction
 summary(model.glm.top)
 
 #----------------------------------#
@@ -105,8 +99,6 @@ summary(model.glm.top)
 model.glm.bottom <- glm(bottom30 ~ chocolate + hard + fruity + peanutyalmondy + caramel + 
                           nougat + crispedricewafer + bar + pluribus + sugarpercent + 
                           pricepercent, family = "binomial", data = candy.data)
-
-# Display the summary of the GLM for the bottom 30% prediction
 summary(model.glm.bottom)
 
 #----------------------------------#
