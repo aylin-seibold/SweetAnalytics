@@ -1,4 +1,15 @@
 #----------------------------------#
+#### Structure of this code ########
+#----------------------------------#
+# 1. ANOVA Test for Ingredient Influence on Winpercent
+# 2. Random Forest Model
+# 3. Linear Models
+# 4. Generalized Linear Model (GLM) for Top 30% Candies
+# 5. GLM for Bottom 30% Candies
+# 6. Interaction Models
+#----------------------------------#
+
+#----------------------------------#
 #### 1. ANOVA Test for Ingredient Influence on Winpercent ####
 #----------------------------------#
 
@@ -61,7 +72,7 @@ model.rf
 importance(model.rf)
 
 #----------------------------------#
-#### 3. Linear Model (lm) ####
+#### 3. Linear Models ####
 #----------------------------------#
 
 # Fit a linear regression model to predict win.prop (win percentage) based on ingredients and other features
@@ -111,10 +122,14 @@ summary(model.glm.bottom)
 # Print Top 5 candies
 top.30[1:5]
 
-# Linear model with interactioneffect between chocolate and peanutyalmondy
-model.lm.interaction1 <- lm(win.prop ~ chocolate*peanutyalmondy + fruity, data = candy.data)
-summary(model.lm.interaction1) # peanutyalmondy only signifikant with chocolate
+# Linear model with interaction effect between chocolate and peanutyalmondy
+model.lm.interaction1 <- lm(win.prop ~ chocolate*peanutyalmondy, data = candy.data)
+summary(model.lm.interaction1)
 
-# Linear model with interactioneffect between chocolate and bar
-model.lm.interaction2 <- glm(top30 ~ chocolate*bar, data = candy.data)
+# Linear model with interaction effect between chocolate and bar
+model.lm.interaction2 <- lm(win.prop ~ chocolate*bar, data = candy.data)
 summary(model.lm.interaction2)
+
+# Linear model with interaction effect between chocolate and crispedricewafer
+model.lm.interaction3 <- lm(win.prop ~ chocolate*crispedricewafer, data = candy.data)
+summary(model.lm.interaction3)
