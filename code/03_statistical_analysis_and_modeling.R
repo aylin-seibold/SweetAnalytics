@@ -108,3 +108,13 @@ summary(model.glm.bottom)
 #### 6. Interaction Models ####
 #----------------------------------#
 
+# Print Top 5 candies
+top.30[1:5]
+
+# Linear model with interactioneffect between chocolate and peanutyalmondy
+model.lm.interaction1 <- lm(win.prop ~ chocolate*peanutyalmondy + fruity, data = candy.data)
+summary(model.lm.interaction1) # peanutyalmondy only signifikant with chocolate
+
+# Linear model with interactioneffect between chocolate and bar
+model.lm.interaction2 <- glm(top30 ~ chocolate*bar, data = candy.data)
+summary(model.lm.interaction2)

@@ -139,7 +139,7 @@ barplot.sugar.price.30 <- ggplot(category.data, aes(x = category, y = count/n, f
   labs(
     title = "Verteilung von Zucker- und Preiskategorien in Top vs. Bottom 30%",
     x = "Kategorie",
-    y = "Anzahl",
+    y = "Anteil",
     fill = "Gruppe"
   ) +
   theme_minimal() +
