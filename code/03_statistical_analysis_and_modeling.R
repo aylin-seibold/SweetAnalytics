@@ -96,12 +96,6 @@ model.glm.top <- glm(top30 ~ chocolate + hard + fruity + peanutyalmondy + carame
 # Display the summary of the GLM for the top 30% prediction
 summary(model.glm.top)
 
-# Compare the AIC (Akaike Information Criterion) values of the linear and GLM models to check for model fit
-AIC(model.lm, model.glm.top)
-
-# Compare the BIC (Bayesian Information Criterion) values of the linear and GLM models
-BIC(model.lm, model.glm.top)
-
 #----------------------------------#
 #### 5. GLM for Bottom 30% Candies ####
 #----------------------------------#
@@ -118,6 +112,8 @@ summary(model.glm.bottom)
 #----------------------------------#
 #### 6. Interaction Models ####
 #----------------------------------#
+
+# Fit a linear regression model to predict win.prop (win percentage) based on interactions of ingredients
 
 # Print Top 5 candies
 top.30[1:5]
